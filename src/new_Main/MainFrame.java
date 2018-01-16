@@ -42,6 +42,7 @@ public class  MainFrame extends JFrame {
     private boolean timeFlag=false;
     private boolean walkFlag=false;
 //    private boolean up,down,right,left,att=false;
+
     //鎖住按鍵事件 防止重複觸發or觸發事件重疊
     private boolean keyFlag =false;
     private JLabel testlb=new JLabel("石頭",JLabel.CENTER);
@@ -195,7 +196,7 @@ public class  MainFrame extends JFrame {
         monsterThreadList.add(new Thread(MobList.get(0)));
         monsterThreadList.get(0).start();
 
-        UIpane.getJbtn1().addActionListener(new ActionListener() {
+        UIpane.getJbtnSmBtn1().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 monsterList.add(new Monster(700,1600,false,MainFrame.this));
@@ -206,6 +207,17 @@ public class  MainFrame extends JFrame {
 //                monsterLocalList.add(new MonsterLocal(monsterList.get(monsterList.size()-1),MainFrame.this));
 //                monsterLocalThreadList.add(new Thread(monsterLocalList.get(monsterLocalList.size()-1)));
 //                monsterLocalThreadList.get(monsterLocalThreadList.size()-1).start();
+            }
+        });
+        UIpane.getJbtnSmBtn2().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                MobList.add(new Mob(1000,800,false , MainFrame.this));
+//                jlyPane.add(MobList.get(MobList.size()-1),new Integer(121));
+//                jlyPane.repaint();
+//                monsterThreadList.add(new Thread(MobList.get(MobList.size()-1)));
+//                monsterThreadList.get(MobList.size()-1).start();
+                MobList.get(0).getattack();
             }
         });
 

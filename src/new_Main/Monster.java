@@ -20,7 +20,7 @@ public  class Monster extends JPanel implements Runnable {
     private ImageIcon hit[]=new ImageIcon[2];
     private ImageIcon walk[]=new ImageIcon[6];
     private ImageIcon stand[]=new ImageIcon[6];
-    private ImageIcon die[]=new ImageIcon[6];
+    private ImageIcon die[]=new ImageIcon[8];
     private boolean up,down,right,left,att=false;
     private JLabel jlb=new JLabel();
     private JLabel jlbHp=new JLabel("10");
@@ -49,6 +49,9 @@ private  boolean Flag = true;
     //new add
     private MonsterHitThread msrHt;
     private Thread msrTh;
+
+    //thread Flag
+    private boolean running=true;
 
   //frmW=移動範圍 d=diestatus
     public Monster(int frmH, int frmW, boolean d ,MainFrame mf1){
@@ -99,7 +102,7 @@ private  boolean Flag = true;
         jpgbarHp.setForeground(new Color(255, 0, 35));
 
         //setLayout
-        this.add(BorderLayout.NORTH,jpgbarHp);
+//        this.add(BorderLayout.NORTH,jpgbarHp);
         this.add(BorderLayout.CENTER,jlb);
 
         //HitThread
@@ -274,23 +277,26 @@ dieT =new Timer(250, new ActionListener() {
     int t1Tmp = 0;
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (t1Tmp < 3) {
+        if (t1Tmp < 4) {
             if (r == 1) {
-                jlb.setIcon(die[t1Tmp % 3 + 3]);
+                jlb.setIcon(die[t1Tmp % 4 + 4]);
 
                 left = true;
                 t1Tmp++;
-                if (t1Tmp == 6) {
+                if (t1Tmp == 4) {
+                    System.out.println("sss");
                     dieT.stop();
                     t1Tmp = 0;
                     setdead(true);
+
                 }
                 // Monster.this.repaint();
             } else {
-                jlb.setIcon(die[t1Tmp % 3]);
-                right = true;
+                jlb.setIcon(die[t1Tmp % 4]);
+
                 t1Tmp++;
-                if (t1Tmp == 6) {
+                if (t1Tmp == 4) {
+                    System.out.println("sss");
                     dieT.stop();
                     t1Tmp = 0;
                     setdead(true);
@@ -316,24 +322,28 @@ dieT =new Timer(250, new ActionListener() {
         });
 
 
-        while (true) {
-            if (getNowHp()==0) {
-                setdead(true);
+        while (running) {
+//            System.out.println("5");
+            if (getNowHp()<=0) {
                 walkT.stop();
                 standT.stop();
+                t1.stop();
                 dieT.start();
+                //清除血條
                 remove(jpgbarHp);
                 mf.getJlyPane().repaint();
-//                int aa=mf.getMonsterList().indexOf(Monster.this)-1;
-//                if (mf.getMonsterList().get(aa).getdead()){
-//                    mf.getJlyPane().remove(mf.getMonsterList().get(0));
-//                    mf.getJlyPane().repaint();
-//                    mf.getMonsterThreadList().remove(aa);
-//                    mf.getMonsterList().remove(aa);
-//                }
-//                dieT.stop();
+//                System.out.println("yy");
+                int aa=mf.getMonsterList().indexOf(Monster.this);
+                if (mf.getMonsterList().get(aa).getdead()){
+                    System.out.println("aa");
+                    mf.getJlyPane().remove(mf.getMonsterList().get(aa));
+                    mf.getJlyPane().repaint();
+                    mf.getMonsterThreadList().remove(aa);
+                    mf.getMonsterList().remove(aa);
+                    running=false;
+                }
 
-                msrTh.stop();
+
             }else if(hitstatus){
                 standT.setDelay(1500);
                 walkT.setDelay(1500);
@@ -390,13 +400,13 @@ dieT =new Timer(250, new ActionListener() {
 
         }
 
-        for(int i=0;i<3;i++) {
+        for(int i=0;i<4;i++) {
 
             die[i] = new ImageIcon("Slime/die/left/die." + Integer.toString(i) + ".png");
 
         }
 
-        for(int  i=3;i<6;i++) {
+        for(int  i=3;i<8;i++) {
 
             die[i]=new ImageIcon("Slime/die/right/die."+Integer.toString(i-3)+".png");
 
@@ -427,6 +437,9 @@ dieT =new Timer(250, new ActionListener() {
     }
     public int getAttack(){
         return attack;
+    }
+    public void setRunning(boolean flag){
+        running=flag;
     }
 //        @Override
 //    protected  void paintComponent(Graphics g){

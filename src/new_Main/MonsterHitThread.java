@@ -7,13 +7,14 @@ public class MonsterHitThread implements Runnable {
     private Monster msr;
     private MainFrame mf;
     private Timer t1;
+    private boolean running=true;
     public MonsterHitThread (Monster msr,MainFrame mf){
         this.msr=msr;
         this.mf=mf;
     }
     @Override
     public void run() {
-        while(true){
+        while(running){
             if(!mf.getMap().setCharCheck(msr.getX()-25,msr.getY(),msr.getSize().height,msr.getSize().width+50)&&mf.getchar().getAtt()){
                 msr.gethit();
                 System.out.println("Monster_hit");
@@ -24,11 +25,11 @@ public class MonsterHitThread implements Runnable {
                     e.printStackTrace();
                 }
                 if(msr.getNowHp()<=0){
-
+                    running=false;
                 }
             }
 //            System.out.println("msrth is running");
-            if(!mf.getMap().setCharCheck(msr.getX(),msr.getY(),msr.getSize().height,msr.getSize().width)){
+            if(!mf.getMap().setCharCheck(msr.getX()+15,msr.getY(),msr.getSize().height,msr.getSize().width-30)){
 //            if( msr.getX()<mf.getchar().getX()+50&&msr.getX()>mf.getchar().getX()-50) {
 //                System.out.println( msr.getX());
 //                System.out.println(mf.getchar().getX()+81);
@@ -48,5 +49,9 @@ public class MonsterHitThread implements Runnable {
                 e.printStackTrace();
             }
         }
+
+    }
+    public void setRunning(boolean flag){
+        running=flag;
     }
 }

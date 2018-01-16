@@ -17,12 +17,21 @@ public class UIpanel extends JPanel implements Runnable{
     private JButton jbtn1=new JButton("能力表");
     private JButton jbtn2=new JButton("幫助");
     private JButton jbtn3=new JButton("系統");
+
+    //help
     private JPanel jpHelp=new JPanel(new GridLayout(5,2));
-    private JLabel jlbHelp1=new JLabel("up");
-    private JLabel jlbHelp2=new JLabel("up");
-    private JLabel jlbHelp3=new JLabel("up");
-    private JLabel jlbHelp4=new JLabel("up");
-    private JLabel jlbHelp5=new JLabel("up");
+    private JLabel jlbHelp1=new JLabel("space       跳");
+    private JLabel jlbHelp2=new JLabel("right       右");
+    private JLabel jlbHelp3=new JLabel("left        左");
+    private JLabel jlbHelp4=new JLabel("z           攻擊");
+
+    //system
+    private JPanel jpsystem=new JPanel(new GridLayout(3,1));
+    private JButton jbtnSmBtn1=new JButton("惡水靈");
+    private JButton jbtnSmBtn2=new JButton("Boss");
+
+
+//    private JLabel jlbHelp5=new JLabel("up");
     private JPanel jpSystem=new JPanel(new GridLayout(4,1,5,5));
     public UIpanel(MainFrame mf){
         this.setLayout(new GridLayout(1,3,5,5));
@@ -49,6 +58,7 @@ public class UIpanel extends JPanel implements Runnable{
         jpgbarMp.setMaximum(mf.getchar().getMaxMp());
         jpgbarMp.setStringPainted(true);
         jpgbarMp.setValue(mf.getchar().getNowMp());
+
         //關閉焦點
         jbtn1.setFocusable(false);
         jbtn2.setFocusable(false);
@@ -57,6 +67,12 @@ public class UIpanel extends JPanel implements Runnable{
         //Help
         jpHelp.add(jlbHelp1);
         jpHelp.add(jlbHelp2);
+        jpHelp.add(jlbHelp3);
+        jpHelp.add(jlbHelp4);
+
+        //system
+        jpsystem.add(jbtnSmBtn1);
+        jpsystem.add(jbtnSmBtn2);
 
         //btn Listener
         jbtn2.addActionListener(new ActionListener() {
@@ -65,6 +81,15 @@ public class UIpanel extends JPanel implements Runnable{
                 JOptionPane.showMessageDialog(null,jpHelp,"幫助",JOptionPane.PLAIN_MESSAGE);
             }
         });
+
+        jbtn3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,jpsystem,"系統",JOptionPane.PLAIN_MESSAGE);
+            }
+        });
+
+
     }
 
     @Override
@@ -85,5 +110,17 @@ public class UIpanel extends JPanel implements Runnable{
 
     public JButton getJbtn1() {
         return jbtn1;
+    }
+    public JButton getJbtn2() {
+            return jbtn2;
+    }
+    public JButton getJbtn3() {
+        return jbtn3;
+    }
+    public JButton getJbtnSmBtn1(){
+        return  jbtnSmBtn1;
+    }
+    public JButton getJbtnSmBtn2(){
+        return  jbtnSmBtn2;
     }
 }
