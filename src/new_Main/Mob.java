@@ -306,8 +306,9 @@ public class Mob extends JPanel implements Runnable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 r1 = rand.nextInt(30000);
-                if (r1 > 29000) {
-//                    walkT.start();
+                if (r1 > 25000) {
+                    standT.stop();
+                    walkT.start();
                 } else {
 //                     attackT.start();
                     walkT.stop();
@@ -332,23 +333,24 @@ public class Mob extends JPanel implements Runnable {
                 standT.stop();
                 walkT.stop();
 //                t1.stop();
-            } else if(attackstatus){
+            } else if (attackstatus) {
                 t1.stop();
                 standT.stop();
                 walkT.stop();
 
-            }else{
+            } else {
 //                walkT.start();
                 t1.start();
             }
-            if (true) {
-
-                t1.setDelay(600);
-                standT.stop();
-                walkT.stop();
-                attackT.start();
-
-            }
+            t1.setDelay(3000);
+//            if (true) {
+//
+//                t1.setDelay(600);
+//                standT.stop();
+//                walkT.stop();
+//                attackT.start();
+//
+//            }
 
 
         }
